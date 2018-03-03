@@ -2,11 +2,14 @@ package fr.message.windows;
 
 import java.awt.EventQueue;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+
+import fr.message.AbstractMessageData;
 
 public class ChatWindows {
 
-	private JFrame frame;
+	private JFrame frmChat;
 
 	/**
 	 * Launch the application.
@@ -17,7 +20,7 @@ public class ChatWindows {
 			public void run() {
 				try {
 					ChatWindows window = new ChatWindows();
-					window.frame.setVisible(true);
+					window.frmChat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,9 +39,13 @@ public class ChatWindows {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 7, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmChat = new JFrame();
+		frmChat.setTitle("Chat");
+		frmChat.setBounds(100, 100, 7, 300);
+		frmChat.setPreferredSize(AbstractMessageData.windowPreferedSize);
+		frmChat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmChat.pack();
+		frmChat.getContentPane().setLayout(new BoxLayout(frmChat.getContentPane(), BoxLayout.X_AXIS));
 	}
 
 }
