@@ -6,6 +6,7 @@ public class Messagerie {
 
 	public static void main(String[] args) {
 		ChatWindows userWindow = new ChatWindows();
+		userWindow.setVisible(true);
 	}
 
 }
