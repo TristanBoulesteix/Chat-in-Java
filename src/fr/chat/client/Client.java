@@ -9,8 +9,11 @@ import java.net.UnknownHostException;
 import fr.chat.main.AbstractChatData;
 
 public class Client extends Thread {
-	public Client() {
-		super();
+	String toSend;
+
+	public Client(String message) {
+		super(message);
+		toSend = message;
 	}
 
 	@Override
@@ -21,8 +24,6 @@ public class Client extends Thread {
 
 			OutputStream outstream = client.getOutputStream();
 			PrintWriter out = new PrintWriter(outstream);
-
-			String toSend = "String to send\n";
 
 			out.print(toSend);
 
