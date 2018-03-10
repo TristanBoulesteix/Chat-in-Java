@@ -18,6 +18,7 @@ import fr.chat.client.Client;
 
 public class ChatWindows {
 
+	private String IPserver;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField txtConverstion;
@@ -44,6 +45,12 @@ public class ChatWindows {
 	 * Create the application.
 	 */
 	public ChatWindows() {
+		IPserver = "localhost";
+		initialize();
+	}
+
+	public ChatWindows(String iP) {
+		IPserver = iP;
 		initialize();
 	}
 
@@ -134,11 +141,12 @@ public class ChatWindows {
 		public void actionPerformed(ActionEvent e) {
 			if (!textField.getText().isEmpty()) {
 				String message = textField.getText();
-				Client client = new Client(message);
+				Client client = new Client(message, IPserver);
 
 				client.start();
 
 			}
 		}
 	}
+
 }

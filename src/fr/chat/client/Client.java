@@ -6,21 +6,23 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import fr.chat.main.AbstractChatData;
+import fr.chat.main.ChatData;
 
 public class Client extends Thread {
 	String toSend;
+	String ip;
 
-	public Client(String message) {
+	public Client(String message, String iPserver) {
 		super(message);
 		toSend = message;
+		ip = iPserver;
 	}
 
 	@Override
 	public void run() {
 		Socket client = null;
 		try {
-			client = new Socket("localhost", AbstractChatData.PORT);
+			client = new Socket("localhost", ChatData.PORT);
 
 			OutputStream outstream = client.getOutputStream();
 			PrintWriter out = new PrintWriter(outstream);

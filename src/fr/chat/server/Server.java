@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import fr.chat.main.AbstractChatData;
+import fr.chat.main.ChatData;
 
 public class Server extends Thread {
 	public Server() {
@@ -18,7 +18,7 @@ public class Server extends Thread {
 	public void run() {
 		ServerSocket server;
 		try {
-			server = new ServerSocket(AbstractChatData.PORT);
+			server = new ServerSocket(ChatData.PORT);
 
 			while (true) {
 				Socket client = new Socket();
