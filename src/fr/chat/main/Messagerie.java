@@ -11,8 +11,8 @@ public class Messagerie {
 		Server server = new Server();
 		Client client = new Client();
 
-		server.run();
-		client.run();
+		server.start();
+		client.start();
 	}
 
 }
