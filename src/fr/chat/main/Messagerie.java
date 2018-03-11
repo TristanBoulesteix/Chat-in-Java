@@ -9,15 +9,11 @@ import fr.chat.windows.ChatWindows;
 import fr.chat.windows.Popup;
 
 public class Messagerie {
-
-	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws IOException {
 		ServerSettings getConnexion = new ServerSettings();
 		getConnexion.getLastServerIP();
 
-		Popup connexion = new Popup();
-
-		if (connexion.isLocalServer()) {
+		if (Popup.isLocalServer()) {
 			Server server = new Server();
 			server.start();
 
