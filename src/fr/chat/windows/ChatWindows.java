@@ -10,7 +10,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -23,6 +25,7 @@ public class ChatWindows {
 	private JTextField textField;
 	private JTextField txtConverstion;
 	private final Action action = new SwingAction();
+	private final Action action_1 = new SwingAction_1();
 
 	/**
 	 * Launch the application.
@@ -70,6 +73,8 @@ public class ChatWindows {
 		getFrame().getContentPane().setLayout(gridBagLayout);
 
 		txtConverstion = new JTextField();
+		txtConverstion.setEnabled(false);
+		txtConverstion.setEditable(false);
 		txtConverstion.setText("Conversation");
 		GridBagConstraints gbc_txtConverstion = new GridBagConstraints();
 		gbc_txtConverstion.gridwidth = 2;
@@ -109,17 +114,43 @@ public class ChatWindows {
 		JMenuBar menuBar = new JMenuBar();
 		getFrame().setJMenuBar(menuBar);
 
-		JButton btnMessagerie = new JButton("Chat");
-		menuBar.add(btnMessagerie);
+		JMenu mnMessagerie = new JMenu("Messagerie");
+		menuBar.add(mnMessagerie);
 
-		JButton btnConversation = new JButton("Conversation");
-		menuBar.add(btnConversation);
+		JMenuItem mntmRinitialiser = new JMenuItem("R\u00E9initialiser");
+		mnMessagerie.add(mntmRinitialiser);
 
-		JButton btnAide = new JButton("Aide");
-		menuBar.add(btnAide);
+		JMenuItem mntmQuitter = new JMenuItem("Quitter");
+		mntmQuitter.setAction(action_1);
+		mnMessagerie.add(mntmQuitter);
 
-		JButton btnPropos = new JButton("\u00C0 propos");
-		menuBar.add(btnPropos);
+		JMenu mnChat = new JMenu("Chat");
+		menuBar.add(mnChat);
+
+		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mnChat.add(mntmDconnexion);
+
+		JMenuItem mntmIpServeur = new JMenuItem("IP serveur");
+		mnChat.add(mntmIpServeur);
+
+		JMenu mnAide = new JMenu("Aide");
+		menuBar.add(mnAide);
+
+		JMenuItem mntmAide = new JMenuItem("Aide");
+		mnAide.add(mntmAide);
+
+		JMenu mnPropos = new JMenu("\u00C1 propos");
+		menuBar.add(mnPropos);
+
+		JMenuItem mntmVersion = new JMenuItem("Version");
+		mntmVersion.setEnabled(false);
+		mnPropos.add(mntmVersion);
+
+		JMenuItem mntmChangelog = new JMenuItem("Changelog");
+		mnPropos.add(mntmChangelog);
+
+		JMenuItem mntmProposDu = new JMenuItem("\u00C1 propos du d\u00E9veloppeur");
+		mnPropos.add(mntmProposDu);
 	}
 
 	public JFrame getFrame() {
@@ -149,4 +180,16 @@ public class ChatWindows {
 		}
 	}
 
+	@SuppressWarnings("serial")
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(NAME, "Quitter");
+			putValue(SHORT_DESCRIPTION, "Fermer toutes les fenêtres et quitter l'application");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
 }
