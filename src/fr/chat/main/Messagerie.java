@@ -1,6 +1,7 @@
 package fr.chat.main;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import fr.chat.server.Server;
 import fr.chat.utils.ServerSettings;
@@ -17,6 +18,11 @@ public class Messagerie {
 		Popup connexion = new Popup();
 
 		if (connexion.isLocalServer()) {
+			Server server = new Server();
+			server.start();
+
+			openWindow();
+		} else if (getConnexion.getIPserver().equals(InetAddress.getLocalHost().getHostAddress())) {
 			Server server = new Server();
 			server.start();
 
