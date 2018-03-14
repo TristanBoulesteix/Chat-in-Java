@@ -34,6 +34,7 @@ public class ChatWindows {
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
 	private final Action action_4 = new SwingAction_4();
+	private final Action action_5 = new SwingAction_5();
 
 	/**
 	 * Launch the application.
@@ -155,6 +156,7 @@ public class ChatWindows {
 		menuBar.add(mnAide);
 
 		JMenuItem mntmAide = new JMenuItem("Aide");
+		mntmAide.setAction(action_5);
 		mnAide.add(mntmAide);
 
 		JMenu mnPropos = new JMenu("\u00C1 propos");
@@ -259,6 +261,17 @@ public class ChatWindows {
 			CloseAll reset = new CloseAll();
 			reset.deleteFile(true);
 			reset.restart();
+		}
+	}
+
+	private class SwingAction_5 extends AbstractAction {
+		public SwingAction_5() {
+			putValue(NAME, "Aide");
+			putValue(SHORT_DESCRIPTION, "Obtenir de l'aide");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }
