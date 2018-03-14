@@ -33,6 +33,7 @@ public class ChatWindows {
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
+	private final Action action_4 = new SwingAction_4();
 
 	/**
 	 * Launch the application.
@@ -132,6 +133,7 @@ public class ChatWindows {
 		menuBar.add(mnMessagerie);
 
 		JMenuItem mntmRinitialiser = new JMenuItem("R\u00E9initialiser");
+		mntmRinitialiser.setAction(action_4);
 		mnMessagerie.add(mntmRinitialiser);
 
 		JMenuItem mntmQuitter = new JMenuItem("Quitter");
@@ -225,7 +227,7 @@ public class ChatWindows {
 
 			if (confirmation) {
 				CloseAll reset = new CloseAll();
-				reset.deleteFile(true);
+				reset.deleteFile();
 				reset.restart();
 			}
 		}
@@ -240,6 +242,23 @@ public class ChatWindows {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Popup.aboutMe();
+		}
+	}
+
+	// TODO:Ajouter les fichiers à supprimer au fur et à mesures que de nouveaux
+	// sont créés dans le programme.
+	@SuppressWarnings("serial")
+	private class SwingAction_4 extends AbstractAction {
+		public SwingAction_4() {
+			putValue(NAME, "Réinitialiser");
+			putValue(SHORT_DESCRIPTION, "Cliquez ici pour vous déconnecter et éffacer toutes vos données");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			CloseAll reset = new CloseAll();
+			reset.deleteFile(true);
+			reset.restart();
 		}
 	}
 }
