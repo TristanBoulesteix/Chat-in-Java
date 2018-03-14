@@ -2,6 +2,7 @@ package fr.chat.main;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import fr.chat.server.Server;
 import fr.chat.utils.ServerSettings;
@@ -30,15 +31,26 @@ public class Messagerie {
 	}
 
 	protected static void openWindow() {
-		ChatWindows window = new ChatWindows();
-		window.initialize();
-		window.getFrame().setVisible(true);
+		ChatWindows window;
+		try {
+			window = new ChatWindows();
+			window.initialize();
+			window.getFrame().setVisible(true);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	protected static void openWindow(String IP) {
-		ChatWindows window = new ChatWindows(IP);
-		window.initialize();
-		window.getFrame().setVisible(true);
+		ChatWindows window;
+		try {
+			window = new ChatWindows(IP);
+			window.initialize();
+			window.getFrame().setVisible(true);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

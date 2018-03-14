@@ -88,4 +88,21 @@ public class Popup {
 			showServerCode(ip);
 		}
 	}
+
+	public static boolean popupBeforeDisconect() {
+		int confirm = JOptionPane.showConfirmDialog(null,
+				"Êtes-vous sûr de vous déconnecter du serveur ?\nCette action vous déconnectera de la conversation actuelle et déconectera le serveur si c'est vous qui en êtes le propritétaire.",
+				"Déconnexion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+		if (confirm == JOptionPane.OK_OPTION) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static void aboutMe() {
+		JOptionPane.showMessageDialog(null, "Tristan BOULESTEIX\nÉtudiant à l'EXIA.CESI.\ntristan.boulesteix@gmail.com",
+				"About me", JOptionPane.INFORMATION_MESSAGE);
+	}
 }

@@ -1,10 +1,14 @@
 package fr.chat.windows;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -16,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import fr.chat.CloseAll;
 import fr.chat.client.Client;
 
 public class ChatWindows {
@@ -26,6 +31,8 @@ public class ChatWindows {
 	private JTextField txtConverstion;
 	private final Action action = new SwingAction();
 	private final Action action_1 = new SwingAction_1();
+	private final Action action_2 = new SwingAction_2();
+	private final Action action_3 = new SwingAction_3();
 
 	/**
 	 * Launch the application.
@@ -46,21 +53,25 @@ public class ChatWindows {
 
 	/**
 	 * Create the application.
+	 * 
+	 * @throws UnknownHostException
 	 */
-	public ChatWindows() {
+	public ChatWindows() throws UnknownHostException {
 		IPserver = "localhost";
 		initialize();
 	}
 
-	public ChatWindows(String iP) {
+	public ChatWindows(String iP) throws UnknownHostException {
 		IPserver = iP;
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @throws UnknownHostException
 	 */
-	public void initialize() {
+	public void initialize() throws UnknownHostException {
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 800, 600);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +84,8 @@ public class ChatWindows {
 		getFrame().getContentPane().setLayout(gridBagLayout);
 
 		txtConverstion = new JTextField();
+		txtConverstion.setDisabledTextColor(Color.BLACK);
+		txtConverstion.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		txtConverstion.setEnabled(false);
 		txtConverstion.setEditable(false);
 		txtConverstion.setText("Conversation");
@@ -86,6 +99,7 @@ public class ChatWindows {
 		txtConverstion.setColumns(10);
 
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.gridheight = 15;
 		gbc_textArea.gridwidth = 2;
@@ -128,9 +142,11 @@ public class ChatWindows {
 		menuBar.add(mnChat);
 
 		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mntmDconnexion.setAction(action_2);
 		mnChat.add(mntmDconnexion);
 
-		JMenuItem mntmIpServeur = new JMenuItem("IP serveur");
+		JMenuItem mntmIpServeur = new JMenuItem("IP serveur : " + InetAddress.getLocalHost().getHostAddress());
+		mntmIpServeur.setEnabled(false);
 		mnChat.add(mntmIpServeur);
 
 		JMenu mnAide = new JMenu("Aide");
@@ -150,7 +166,10 @@ public class ChatWindows {
 		mnPropos.add(mntmChangelog);
 
 		JMenuItem mntmProposDu = new JMenuItem("\u00C1 propos du d\u00E9veloppeur");
+		mntmProposDu.setAction(action_3);
 		mnPropos.add(mntmProposDu);
+
+		getFrame().getRootPane().setDefaultButton(btnEnvoyer);
 	}
 
 	public JFrame getFrame() {
@@ -190,6 +209,37 @@ public class ChatWindows {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+		}
+	}
+
+	@SuppressWarnings("serial")
+	private class SwingAction_2 extends AbstractAction {
+		public SwingAction_2() {
+			putValue(NAME, "Déconnexion");
+			putValue(SHORT_DESCRIPTION, "Déconnectez-vous du serveur");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean confirmation = Popup.popupBeforeDisconect();
+
+			if (confirmation) {
+				CloseAll reset = new CloseAll();
+				reset.deleteFile(true);
+				reset.restart();
+			}
+		}
+	}
+
+	@SuppressWarnings("serial")
+	private class SwingAction_3 extends AbstractAction {
+		public SwingAction_3() {
+			putValue(NAME, "Á propos du développeur");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Popup.aboutMe();
 		}
 	}
 }
